@@ -1,0 +1,151 @@
+/* App.css */
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f7f6;
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+/* Main app container */
+.App {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #fff;
+  min-height: 100vh;
+}
+
+/* Header */
+h1 {
+  font-size: 2.5rem;
+  color: #333;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Columns container */
+.container {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  width: 100%;
+  padding: 0 20px;
+  flex-wrap: wrap;
+}
+
+/* Individual column styling */
+.column {
+  background-color: #ffffff;
+  padding: 20px;
+  width: 300px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.column:hover {
+  background-color: #f0f0f0;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Column title styling */
+.column h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* Tasks container */
+.tasks-container {
+  padding: 10px;
+  background-color: #e0e0e0;
+  border-radius: 5px;
+  flex-grow: 1;
+}
+
+/* Task card styling */
+.task-card {
+  background-color: #ffffff;
+  padding: 12px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  cursor: grab;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.task-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.task-card:active {
+  cursor: grabbing;
+}
+
+/* Add task form styling */
+.add-task {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+  justify-content: center;
+}
+
+.add-task input {
+  padding: 8px;
+  width: 200px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.add-task button {
+  padding: 8px 12px;
+  cursor: pointer;
+  background-color: #008cba;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+}
+
+.add-task button:hover {
+  background-color: #006f8c;
+}
+
+/* Responsive styles for smaller screens */
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .column {
+    width: 100%;
+  }
+
+  .tasks-container {
+    padding: 5px;
+  }
+
+  .task-card {
+    padding: 10px;
+    margin: 5px 0;
+  }
+
+  .add-task input,
+  .add-task button {
+    width: 100%;
+  }
+}

@@ -1,0 +1,18 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f5f7;
+  margin: 0;
+  padding: 0;
+}
+
+h3 {
+  margin: 0;
+}
+
+.card {
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.column {
+  background: #ffffff;
+}
