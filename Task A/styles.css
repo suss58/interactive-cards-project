@@ -1,0 +1,352 @@
+/* Global reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Body and background styles */
+body {
+  margin: 0;
+  overflow: hidden;
+  height: 100vh;
+  background: linear-gradient(to right, #fbab75, rgba(134, 67, 174, 255));
+  font-family: Arial, sans-serif;
+}
+
+/* Card container styles */
+.card-container {
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Cards container holds all the cards */
+.cards-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+/* Card basic styles */
+.card {
+  position: absolute;
+  width: clamp(300px, 40%, 650px);
+  height: clamp(350px, 45%, 750px);
+  background: linear-gradient(to right, #e66c7c, rgba(216, 92, 135, 255));
+  border-left: 4px solid rgba(255, 152, 172, 255);
+  border-top: 4px solid rgba(255, 152, 172, 255);
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  opacity: 0;
+  transform: scale(0.9) translateY(100%); /* Start off-screen (low) */
+  transition: transform 0.7s ease-out, opacity 0.7s ease-out;
+  pointer-events: none;
+  z-index: 1; /* Default z-index for all cards */
+}
+
+/* Animation for loading cards from low to high */
+@keyframes loadFromLow {
+  0% {
+    transform: scale(0.9) translateY(100%); /* Start off-screen at the bottom */
+    opacity: 0; /* Fully transparent */
+  }
+  100% {
+    transform: scale(1) translateY(0); /* Move to its final position */
+    opacity: 1; /* Fully visible */
+  }
+}
+
+/* Active card styles (centered and fully visible) */
+.card.active {
+  animation: loadFromLow 0.7s ease-out forwards; /* Apply animation */
+  transform: scale(1);
+  opacity: 1;
+  z-index: 2; /* Bring the active card on top */
+  pointer-events: auto; /* Enable interactions for the active card */
+  transition: transform 0.7s ease-out, opacity 0.7s ease-out;
+}
+
+/* Previous card (fixed near the top) */
+.card.prev {
+  position: fixed;
+  top: 15%; /* Fixed near the top */
+  left: 50%;
+  transform: translateX(-50%) scale(0.7); /* Center horizontally and scale down */
+  opacity: 0.7;
+  z-index: 1; /* Below active card */
+  pointer-events: none;
+  transition: all 0.7s ease-out;
+}
+
+/* Next card (fixed near the bottom) */
+.card.next {
+  position: fixed;
+  bottom: 15%; /* Fixed near the bottom */
+  left: 50%;
+  transform: translateX(-50%) scale(0.7); /* Center horizontally and scale down */
+  opacity: 0.7;
+  z-index: 1; /* Below the active card */
+  pointer-events: none;
+  transition: all 0.7s ease-out;
+}
+
+/* Hidden cards (fully hidden and non-interactive) */
+.card.hidden {
+  opacity: 0;
+  transform: scale(0); /* Shrink to zero size */
+  pointer-events: none; /* Disable interactions */
+}
+
+/* Card header (large rectangle at the top of the card) */
+.card-header {
+  width: 100%;
+  height: 175px;
+  background: rgba(237, 114, 126, 255);
+  border-left: 4px solid rgba(253, 158, 159, 255);
+  border-top: 4px solid rgba(253, 158, 159, 255);
+  border-radius: 25px;
+  margin-bottom: 30px;
+}
+
+/* Row layout inside card to contain circle and rectangles */
+.card-content-row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+/* Circle element (left column) */
+.card-circle {
+  width: 70px;
+  height: 70px;
+  background: rgba(241, 138, 129, 255);
+  border-radius: 50%;
+}
+
+/* Right column with rectangles */
+.card-right-column {
+  width: 100%;
+}
+
+.card-left-column{
+  margin-right: 10px;
+}
+
+/* Medium rectangle */
+.card-medium-rect {
+  width: 100%;
+  height: 30px;
+  background: rgba(241, 138, 129, 255);
+  border-radius: 10px;
+  margin-bottom: 15px;
+  margin-right: 100px;
+}
+
+/* Small rectangle */
+.card-small-rect {
+  width: 48%;
+  height: 15px;
+  background: rgba(241, 138, 129, 255);
+  border-radius: 10px;
+}
+
+/* Responsive styles */
+
+/* Medium screens (Laptops and small desktop) */
+@media (max-width: 1200px) {
+  .card {
+    width: clamp(250px, 45%, 650px);
+    height: clamp(300px, 50%, 700px);
+  }
+}
+
+/* Advanced layout for devices below 1000px */
+
+/* Tablets and large phones (Portrait mode) */
+@media (max-width: 992px) {
+  .card {
+    width: clamp(180px, 50%, 550px); /* Adjust card size for better fit */
+    height: clamp(250px, 55%, 600px); /* Reduce height to avoid overflow */
+    padding: 15px; /* Reduce padding for smaller screens */
+  }
+
+  .card-header {
+    height: 110px; /* Adjust header size */
+  }
+
+  .card-circle {
+    width: 40px; /* Smaller circle */
+    height: 40px;
+  }
+
+  .card-medium-rect {
+    height: 10px;
+  }
+
+  .card-small-rect {
+    height: 8px;
+  }
+
+  .card-content-row {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+  }
+
+  .card-left-column {
+    margin-right: 5px; /* Reduce space for small screens */
+  }
+}
+
+/* Tablets in Landscape and smaller phones */
+@media (max-width: 768px) {
+  .card {
+    width: clamp(150px, 60%, 550px); /* Smaller card size */
+    height: clamp(200px, 55%, 600px);
+    padding: 12px;
+  }
+
+  .card-header {
+    height: 100px; /* Smaller header */
+  }
+
+  .card-circle {
+    width: 35px; /* Even smaller circle */
+    height: 35px;
+  }
+
+  .card-medium-rect,
+  .card-small-rect {
+    height: 8px;
+  }
+
+  .card-left-column {
+    margin-right: 5px;
+  }
+
+  .card-content-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Mobile devices (Portrait mode) */
+@media (max-width: 576px) {
+  .card {
+    width: clamp(120px, 70%, 450px);
+    height: clamp(150px, 60%, 550px);
+  }
+
+  .card-header {
+    height: 130px;
+  }
+
+  .card-circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .card-medium-rect,
+  .card-small-rect {
+    height: 12px;
+  }
+
+  .card-left-column {
+    margin-right: 5px;
+  }
+
+  .card-content-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+/* Small mobile devices (Portrait mode) */
+@media (max-width: 375px) {
+  .card {
+    width: clamp(100px, 80%, 400px);
+    height: clamp(120px, 70%, 500px);
+  }
+
+  .card-header {
+    height: 100px;
+  }
+
+  .card-circle {
+    width: 40px;
+    height: 40px;
+  }
+
+  .card-medium-rect,
+  .card-small-rect {
+    height: 10px;
+  }
+}
+
+/* Very small mobile devices (below 350px width) */
+@media (max-width: 320px) {
+  .card {
+    width: clamp(90px, 85%, 380px);
+    height: clamp(110px, 70%, 480px);
+  }
+
+  .card-header {
+    height: 90px;
+  }
+
+  .card-circle {
+    width: 35px;
+    height: 35px;
+  }
+
+  .card-medium-rect,
+  .card-small-rect {
+    height: 8px;
+  }
+}
+
+/* Ultra small mobile devices (300px and below) */
+@media (max-width: 300px) {
+  .card {
+    width: clamp(80px, 90%, 360px);
+    height: clamp(100px, 75%, 460px);
+  }
+
+  .card-header {
+    height: 85px;
+  }
+
+  .card-circle {
+    width: 30px;
+    height: 30px;
+  }
+
+  .card-medium-rect,
+  .card-small-rect {
+    height: 6px;
+  }
+
+  .card-left-column {
+    margin-right: 2px;
+  }
+
+  .card-content-row {
+    flex-direction: column;
+    align-items: center;
+  }
+}
